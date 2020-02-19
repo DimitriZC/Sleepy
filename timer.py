@@ -15,7 +15,6 @@ class PyScreen():
 		window = sg.Window('Sleepy').layout(layout)
 
 		# Take time from the screen:
-		self.button, self.values = window.Read()
 
 	def Start(self):
 		print(self.values)
