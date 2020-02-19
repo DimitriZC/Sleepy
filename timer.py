@@ -10,7 +10,6 @@ class PyScreen():
 		default_layout = [
 			[sg.Radio('Restart','Time', key='restart'), sg.Radio('Turn off','Time', key='turnoff'), sg.Radio('Timer','Time', key='timer')],
 			[sg.Ok(size=(7, 0)), sg.Cancel(size=(7, 0))],
-			[sg.Output(size=(30, 20))]
 		]
 		timer_layout = [
 			[sg.Text('Time', size=(5, 0)), sg.Input(size=(16, 0), key='shutdowntime')],
@@ -18,17 +17,14 @@ class PyScreen():
 		]
 		
 		# Window
-		self.window = sg.Window('Sleepy').layout(default_layout)
+		window = sg.Window('Sleepy').layout(default_layout)
 
 		# Take time from the screen:
+		self.button, self.values = window.Read()
 
 	def Start(self):
-		while True:
-			self.button, self.values = self.window.Read()
-			timer = self.values['timer']
-			if timer:
-				pass
-			print(self.values, timer)
+		timer = self.values['timer']
+		print(self.values, timer)
 
 screen = PyScreen()
 screen.Start()
