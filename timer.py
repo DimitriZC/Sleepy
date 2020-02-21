@@ -9,31 +9,31 @@ class PyScreen():
 		# first layout
 		default_layout = [
 			[sg.Radio('Restart','Time', key='restart'), sg.Radio('Turn off','Time', key='turnoff')],
-			[sg.Text('Time', size=(5, 0)), sg.Input(size=(10, 0), key='time')],
+			# [sg.Text('Time', size=(5, 0)), sg.In(size=(15, 0), key='time')],
+			[sg.Slider(range=(0, 3600), key='time', default_value=1800, orientation='h')],
 			[sg.Ok(size=(7, 0)), sg.Cancel(size=(7, 0))],
 		]
 		
 		# Window
-		window = sg.Window('Sleepy').layout(default_layout)
+		window = sg.Window('Sleepy', grab_anywhere=False, no_titlebar=False, finalize=True).layout(default_layout)
 
 		# Take time from the screen:
 		self.button, self.values = window.Read()
 
-	def Start(self):
+	def start_windows(self):
 		restart = self.values['restart']
 		turnoff = self.values['turnoff']
 		time = self.values['time']
-		comm_string = 'dir'
+		comm_string = ' '
 		if restart:
-			# comm_string = f'shutdown -r -t {time}'
+			comm_string = f'shutdown -r -t {time}'
 			subprocess.run(f'{comm_string}', shell = True)
-			pass
 		if turnoff:
-			# comm_string = f'shutdown -s -t {time}'
+			comm_string = f'shutdown -s -t {time}'
 			subprocess.run(f'{comm_string}', shell = True)
 			
 		print(self.values)
 
-screen = PyScreen()
-screen.Start()
 
+screen = PyScreen() # This will be here to make test easyer
+screen.start_windows()
