@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+import PyInstaller
 import subprocess
 
 class PyScreen():
@@ -23,13 +24,14 @@ class PyScreen():
 	def start_windows(self):
 		restart = self.values['restart']
 		turnoff = self.values['turnoff']
-		time = self.values['time']
+		time = int(self.values['time'])
 		comm_string = ' '
 		if restart:
 			comm_string = f'shutdown -r -t {time}'
 			subprocess.run(f'{comm_string}', shell = True)
 		if turnoff:
-			comm_string = f'shutdown -s -t {time}'
+			comm_string = f'shutdown /s /t {time}'
+			print(comm_string)
 			subprocess.run(f'{comm_string}', shell = True)
 			
 		print(self.values)
